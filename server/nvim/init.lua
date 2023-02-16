@@ -79,6 +79,7 @@ use {'haya14busa/incsearch.vim', config = function() vim.g['incsearch#auto_nohls
 use 'kuangliu/vim-easymotion'
 use 'haya14busa/incsearch-easymotion.vim'
 use {'mileszs/ack.vim', config = function() vim.g.ackprg = 'ag --vimgrep' end}
+use 'ctrlpvim/ctrlp.vim'
 
 use {'lervag/vimtex', ft = {"tex"}, config = function()
     vim.g.vimtex_view_method = "zathura"
@@ -119,6 +120,7 @@ map('n', '<C-H>', '<C-W><C-H>', n)
 
 map('n', '<Leader>a', ':Ack ', n)
 map('n', '<Leader>s', ':NvimTreeToggle<CR>', s)
+map('n', '<Leader>d', ':CtrlPMixed<CR>', s)
 -- TODO minibuf ( s) and fzf ( d)
 map('n', 'f', '<Plug>(easymotion-bd-W)', sn)
 
