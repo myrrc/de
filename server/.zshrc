@@ -16,6 +16,11 @@ source /etc/profile
 
 export INFRA_DIR=${CONF}/
 
+for p (syntax-highlighting autosuggestions) {
+    folder="$HOME/.tmp/$p"
+    [ ! -d $folder ] && git clone --depth 1 https://github.com/zsh-users/zsh-$p $folder; source $folder/zsh-$p.zsh
+}
+
 check-ssh-agent() { [ -S "$SSH_AUTH_SOCK" ] && { ssh-add -l >& /dev/null || [ $? -ne 2 ]; } }
 check-ssh-agent || export SSH_AUTH_SOCK=$HOME/.tmp/ssh-agent.sock
 check-ssh-agent || eval "$(ssh-agent -s -a $HOME/.tmp/ssh-agent.sock)" > /dev/null
