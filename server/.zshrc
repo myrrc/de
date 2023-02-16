@@ -9,7 +9,8 @@ setopt HIST_SAVE_NO_DUPS
 
 bindkey "^R" history-incremental-search-backward
 
-export HISTFILE=$HOME/.tmp/histfile HISTSIZE=10000 SAVEHIST=10000 PS1='%F{yellow}%# %f'
+export HISTFILE=$HOME/.tmp/histfile HISTSIZE=10000 SAVEHIST=10000
+export PS1='%F{blue}%# %f' RPS1='%F{green}%/'
 export EDITOR=nvim
 
 source /etc/profile
