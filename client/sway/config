@@ -1,0 +1,23 @@
+input "type:keyboard" {
+    xkb_layout us,ru
+    xkb_options caps:swapescape
+    xkb_options grp:alt_shift_toggle
+}
+
+gaps inner 5
+gaps outer 0
+smart_gaps on
+hide_edge_borders smart_no_gaps
+
+font pango:JetBrains Mono 18
+client.focused #ffffff #285577 #ffffff #2e9ef4 #ffffff
+
+# exec /home/myrrc/.config/client/sh/startup.sh
+
+exec swayidle -w \
+    timeout 300 'swaylock -f -c 000000' \
+    timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -c 000000'
+
+# compatibility
+bindsym Mod4+Return exec alacritty
