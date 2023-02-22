@@ -45,7 +45,7 @@ end }
 
 use {'p00f/nvim-ts-rainbow', after = "nvim-treesitter"}
 
-use {'lukas-reineke/indent-blankline.nvim', ft = {"yaml"}, config = function()
+use {'lukas-reineke/indent-blankline.nvim', ft = {"yaml", "python"}, config = function()
     require "indent_blankline".setup()
     vim.g.indent_blankline_char_list = {'|', '¦', '┆', '┊'}
 end}
