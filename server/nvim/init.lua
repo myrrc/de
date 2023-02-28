@@ -18,8 +18,6 @@ vim.g.mapleader = " "
 vim.g.loaded_netrw, vim.g.loaded_netrwPlugin = 1, 1
 vim.g.loaded_python3_provider, vim.g.loaded_ruby_provider, vim.g.loaded_perl_provider = 0, 0, 0
 
-vim.api.nvim_create_autocmd("FocusLost", {pattern = "*", callback = ":wa"})
-
 require 'packer'.startup(function()
 use 'wbthomason/packer.nvim'
 use {'morhetz/gruvbox', config = function() vim.cmd.colorscheme("gruvbox") end }
@@ -79,7 +77,7 @@ use {'haya14busa/incsearch.vim', config = function() vim.g['incsearch#auto_nohls
 use 'kuangliu/vim-easymotion'
 use 'haya14busa/incsearch-easymotion.vim'
 use {'mileszs/ack.vim', config = function() vim.g.ackprg = 'ag --vimgrep' end}
-use 'ctrlpvim/ctrlp.vim'
+use {'ctrlpvim/ctrlp.vim', config = function() vim.g.ctrlp_clear_cache_on_exit = 0 end}
 
 use {'lervag/vimtex', ft = {"tex"}, config = function()
     vim.g.vimtex_view_method = "zathura"
@@ -139,8 +137,8 @@ map('n', '<Leader>m', ':G commit<CR>', sn)
 map('n', '<Leader>,', ':G push<CR>', sn)
 map('n', '<Leader>/', '"*p', sn)
 
---map('n', '[d', vim.diagnostic.goto_prev, sn)
---map('n', ']d', vim.diagnostic.goto_next, sn)
+map('n', '[d', vim.diagnostic.goto_prev, sn)
+map('n', ']d', vim.diagnostic.goto_next, sn)
 map('n', '/', '<Plug>(incsearch-easymotion-/)', {})
 map('n', 'n', '<Plug>(incsearch-nohl-n)', {})
 map('n', 'N', '<Plug>(incsearch-nohl-N)', {})
