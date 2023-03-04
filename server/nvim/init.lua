@@ -10,7 +10,7 @@ filetype plugin indent on
 set gdefault ignorecase undofile smartcase list
 set completeopt=menu,menuone
 set smartindent expandtab smarttab tabstop=4 softtabstop=0 shiftwidth=4 textwidth=120
-set ch=0 ls=0 stal=0 sbr=> fcs+=diff:/ fdl=99 cole=2
+set ch=0 ls=0 stal=0 sbr=> fen fcs+=diff:/ fdl=99 cole=2
 set spell spl=en,ru
 ]]
 
@@ -29,7 +29,8 @@ use {'stevearc/dressing.nvim', config = function() require 'dressing'.setup {
 use {'nvim-treesitter/nvim-treesitter', config = function()
     ts_langs = {
         "c", "cpp", "lua", "dot", "rust", "cmake", "python", "bash", "toml",
-        "dockerfile", "yaml", "go", "haskell", "html", "scss", "tlaplus"}
+        "dockerfile", "yaml", "go", "haskell", "html", "scss", "tlaplus",
+        "markdown", "markdown_inline"}
     ts_colors = { 'Red', 'brown', 'Yellow', 'Blue', 'Magenta', 'Cyan' }
 
     require 'nvim-treesitter.configs'.setup {
@@ -37,8 +38,8 @@ use {'nvim-treesitter/nvim-treesitter', config = function()
         highlight = { enable = true, additional_vim_regex_highlighting = false },
         rainbow = { enable = true, extended_mode = true, colors = ts_colors}}
 
-    vim.wo.foldmethod = "expr"
-    vim.wo.foldexpr = "vim_treesitter#foldexpr()"
+    vim.wo.foldmethod = "indent"
+    --vim.wo.foldexpr = "vim_treesitter#foldexpr()"
 end }
 
 use {'p00f/nvim-ts-rainbow', after = "nvim-treesitter"}
@@ -97,7 +98,7 @@ use 'myrrc/tlaplus-conceal.vim'
 end)
 
 local caps, servers = require 'cmp_nvim_lsp'.default_capabilities(), {
-    clangd = { "clangd-13", "--background-index", "-j=8", "--header-insertion=never" },
+    clangd = { "clangd-15", "--background-index", "-j=8", "--header-insertion=never" },
     rust_analyzer = { "rust-analyzer" },
     hls = { "haskell-language-server-wrapper", "--lsp" }
 }
