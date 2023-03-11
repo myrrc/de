@@ -92,8 +92,7 @@ for lsp_name, lsp_flags in pairs(servers) do require 'lspconfig'[lsp_name].setup
 local map, n, s, sn = vim.keymap.set, {noremap = true}, {silent = true}, {silent = true, noremap = true}
 
 map('n', ';', ':', n)
-map('i', 'jj', '<ESC>', n)
-map('t', 'jj', '<C-\\><C-n>', n)
+map('t', '<ESC>', '<C-\\><C-n>', n)
 map('n', '<C-J>', '<C-W><C-J>', n)
 map('n', '<C-K>', '<C-W><C-K>', n)
 map('n', '<C-L>', '<C-W><C-L>', n)

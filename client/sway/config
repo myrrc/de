@@ -2,8 +2,7 @@ output * bg ~/bg.png fill
 
 input "type:keyboard" {
     xkb_layout us,ru
-    xkb_options caps:escape
-    xkb_options grp:alt_shift_toggle
+    xkb_options caps:escape,grp:alt_shift_toggle
 }
 
 default_border none
@@ -17,6 +16,7 @@ client.focused #ffffff #285577 #ffffff #2e9ef4 #ffffff
 
 exec dunst &
 exec bash -c '~/de/client/eyes_break.sh &'
+exec bash -c '~/de/client/warn_low_battery.sh &'
 exec bash -c '~/de/client/lock_screen.sh'
 
 bindsym --to-code {
