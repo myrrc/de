@@ -1,11 +1,9 @@
-window: {opacity: .95}
-
 font:
   normal: {family: JetBrains Mono}
   bold: {family: JetBrains Mono}
   italic: {family: JetBrains Mono}
   bold_italic: {family: JetBrains Mono}
-  size: 14.
+  size: 21.
 
 colors:
   primary: {background: '0x282828', foreground: '0xebdbb2'}

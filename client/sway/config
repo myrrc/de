@@ -1,9 +1,12 @@
+output * bg ~/bg.png fill
+
 input "type:keyboard" {
     xkb_layout us,ru
-    xkb_options caps:swapescape
+    xkb_options caps:escape
     xkb_options grp:alt_shift_toggle
 }
 
+default_border none
 gaps inner 5
 gaps outer 0
 smart_gaps on
@@ -12,13 +15,35 @@ hide_edge_borders smart_no_gaps
 font pango:JetBrains Mono 18
 client.focused #ffffff #285577 #ffffff #2e9ef4 #ffffff
 
-exec swayidle -w \
-    timeout 300 'swaylock -f -c 000000' \
-    timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-    before-sleep 'swaylock -f -c 000000'
-exec /bin/zsh -c 'dunst &'
-exec /bin/zsh -c 'swhkd -c "~/.config/swhkd/swhkdrc" -m -1 &'
-exec /bin/zsh -c '~/.config/eyes_break.sh &'
+exec dunst &
+exec bash -c '~/de/client/eyes_break.sh &'
+exec bash -c '~/de/client/lock_screen.sh'
 
-# compatibility
-bindsym Mod4+Return exec alacritty
+bindsym --to-code {
+    Mod4+q kill
+    Mod4+w exec swaynag -t warning -m 'Logout?' -B 'Y' 'swaymsg exit'
+
+    Mod1+c splith
+    Mod1+v splitv
+# (x only) bindsym alt+b exec dmenu
+
+    Mod1+n fullscreen toggle
+# replace with foot
+    Mod1+m exec alacritty
+# take screenshot (xorg only): maim -s | xclip -selection clipboard -t image/png
+
+    Mod1+a workspace 1
+    Mod1+s workspace 2
+    Mod1+d workspace 3
+    Mod1+f workspace 4
+
+    Mod1+h focus left
+    Mod1+j focus down
+    Mod1+k focus up
+    Mod1+l focus right
+
+    Mod4+a move container to workspace 1
+    Mod4+s move container to workspace 2
+    Mod4+d move container to workspace 3
+    Mod4+f move container to workspace 4
+}
