@@ -6,12 +6,9 @@ syntax on filetype on
 filetype indent on
 filetype plugin on
 filetype plugin indent on
-
-set gdefault ignorecase undofile smartcase list
-set completeopt=menu,menuone
+set gdefault ignorecase undofile smartcase list completeopt=menu,menuone
 set smartindent expandtab smarttab tabstop=4 softtabstop=0 shiftwidth=4 textwidth=120
-set ch=0 ls=0 stal=0 sbr=> fdl=99 cole=2 nohlsearch
-set spell spl=en,ru
+set ls=0 stal=0 sbr=> fdl=99 cole=2 nohlsearch spell spl=en,ru
 ]]
 
 vim.g.mapleader = " "
@@ -25,17 +22,16 @@ use {'stevearc/dressing.nvim', config = function() require 'dressing'.setup {
     input = {win_options = {winblend = 0}}, select = {enabled = false} } end }
 
 use {'nvim-treesitter/nvim-treesitter', config = function()
-    ts_langs = {
-        "c", "cpp", "lua", "dot", "rust", "cmake", "python", "bash", "toml", "dockerfile", "yaml", "go",
-        "haskell", "html", "scss", "tlaplus", "markdown", "markdown_inline"}
-    ts_colors = { 'Red', 'brown', 'Yellow', 'Blue', 'Magenta', 'Cyan' }
+    ts_langs = { "c", "cpp", "lua", "dot", "rust", "cmake", "python", "bash", "toml",
+        "dockerfile", "yaml", "go", "haskell", "html", "scss", "tlaplus", "markdown", "markdown_inline"}
+    ts_colors = {'Red', 'brown', 'Yellow', 'Blue', 'Magenta', 'Cyan'}
 
     require 'nvim-treesitter.configs'.setup {
         ensure_installed = ts_langs,
         highlight = { enable = true, additional_vim_regex_highlighting = false },
         rainbow = { enable = true, extended_mode = true, colors = ts_colors}}
 
-    vim.wo.foldmethod, vim.wo.foldexpr = "foldexpr", "vim_treesitter#foldexpr()"
+    --vim.wo.foldmethod, vim.wo.foldexpr = "foldexpr", "vim_treesitter#foldexpr()"
 end }
 
 use {'p00f/nvim-ts-rainbow', after = "nvim-treesitter"}
@@ -60,8 +56,8 @@ use {'kyazdani42/nvim-tree.lua', commit = "ec3f10e2116f344d9cc5c9980bddf7819f27d
 
 use 'tpope/vim-fugitive'
 -- TODO Maybe use this instead of fugitive
-use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim', config = function() require "diffview".setup{
-    use_icons = false } end}
+use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim', config = function()
+    require "diffview".setup{use_icons = false} end}
 
 use {'simrat39/rust-tools.nvim', config = function() require 'rust-tools'.setup{} end}
 
@@ -87,8 +83,7 @@ end)
 
 local caps, servers = require 'cmp_nvim_lsp'.default_capabilities(), {
     clangd = { "clangd-15", "--background-index", "-j=8", "--header-insertion=never" },
-    gopls = {"gopls"},
-    rust_analyzer = { "rust-analyzer" },
+    pylsp = {"pylsp"}, rust_analyzer = { "rust-analyzer" },
     hls = { "haskell-language-server-wrapper", "--lsp" } }
 
 for lsp_name, lsp_flags in pairs(servers) do require 'lspconfig'[lsp_name].setup {
@@ -104,24 +99,25 @@ map('n', '<C-K>', '<C-W><C-K>', n)
 map('n', '<C-L>', '<C-W><C-L>', n)
 map('n', '<C-H>', '<C-W><C-H>', n)
 
-map('n', '<Leader>a', require'hop'.hint_words, sn)
-map('n', '<Leader>s', ':CtrlPMixed<CR>', s)
-map('n', '<Leader>d', ':Ack ', n)
-map('n', '<Leader>f', ':NvimTreeToggle<CR>', s)
+map('n', 'fa', require'hop'.hint_words, sn)
+map('n', 'fs', ':CtrlPMixed<CR>', sn)
+map('n', 'fd', ':CtrlPBuffer<CR>', sn)
+map('n', 'ff', ':Ack ', n)
+map('n', 'fr', ':NvimTreeToggle<CR>', sn)
 
-map('n', '<Leader>y', '"*p', sn)
-map('n', '<Leader>u', vim.lsp.buf.format, sn)
-map('n', '<Leader>i', vim.lsp.buf.document_symbol, sn)
+map('n', 'feh', '"*p', sn)
+map('n', 'fej', vim.diagnostic.open_float, sn)
+map('n', 'fek', vim.lsp.buf.format, sn)
+map('n', 'fel', vim.lsp.buf.document_symbol, sn)
 
-map('n', '<Leader>g', vim.lsp.buf.code_action, sn)
-map('n', '<Leader>h', vim.lsp.buf.hover, sn)
-map('n', '<Leader>j', vim.lsp.buf.definition, sn)
-map('n', '<Leader>k', vim.lsp.buf.references, sn)
-map('n', '<Leader>l', vim.lsp.buf.rename, sn)
+map('n', 'fg', vim.lsp.buf.code_action, sn)
+map('n', 'fh', vim.lsp.buf.hover, sn)
+map('n', 'fj', vim.lsp.buf.definition, sn)
+map('n', 'fk', vim.lsp.buf.references, sn)
+map('n', 'fl', vim.lsp.buf.rename, sn)
+map('n', 'gj', vim.diagnostic.goto_prev, sn)
+map('n', 'gk', vim.diagnostic.goto_next, sn)
 
-map('n', '<Leader>b', ':DiffviewOpen<CR>', sn)
-map('n', '<Leader>n', ':G commit<CR>', sn)
-map('n', '<Leader>m', ':G push<CR>', sn)
-
-map('n', '[d', vim.diagnostic.goto_prev, sn)
-map('n', ']d', vim.diagnostic.goto_next, sn)
+map('n', 'fb', ':DiffviewOpen<CR>', sn)
+map('n', 'fn', ':G commit<CR>', sn)
+map('n', 'fm', ':G push<CR>', sn)
