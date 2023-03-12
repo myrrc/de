@@ -24,7 +24,7 @@ bindsym --to-code {
 
     Mod1+c splith
     Mod1+v splitv
-    Mod1+g exec ~/.local/bin/tofi-run
+    Mod1+g exec ~/.local/bin/tofi-run | xargs swaymsg exec --
 
     Mod1+n fullscreen toggle
 # replace with foot
