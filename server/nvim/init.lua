@@ -60,6 +60,7 @@ use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim', config = func
     require "diffview".setup{use_icons = false} end}
 
 use {'simrat39/rust-tools.nvim', config = function() require 'rust-tools'.setup{} end}
+use 'https://git.sr.ht/~p00f/clangd_extensions.nvim'
 
 use {'phaazon/hop.nvim', config = function() require'hop'.setup{} end}
 use {'mileszs/ack.vim', config = function() vim.g.ackprg = 'ag --vimgrep' end}
@@ -82,12 +83,15 @@ use 'myrrc/tlaplus-conceal.vim'
 end)
 
 local caps, servers = require 'cmp_nvim_lsp'.default_capabilities(), {
-    clangd = { "clangd-15", "--background-index", "-j=8", "--header-insertion=never" },
     pylsp = {"pylsp"}, rust_analyzer = { "rust-analyzer" },
-    hls = { "haskell-language-server-wrapper", "--lsp" } }
+    hls = { "haskell-language-server-wrapper", "--lsp" }}
 
 for lsp_name, lsp_flags in pairs(servers) do require 'lspconfig'[lsp_name].setup {
-    capabilities = caps, cmd = lsp_flags, flags = { debounce_text_changes = 150} } end
+    capabilities = caps, cmd = lsp_flags } end
+
+require'clangd_extensions'.setup { server = {
+    cmd = {"clangd-15", "--background-index", "-j=8", "--header-insertion=never"},
+    capabilities = caps }}
 
 local map, n, s, sn = vim.keymap.set, {noremap = true}, {silent = true}, {silent = true, noremap = true}
 
@@ -105,15 +109,16 @@ map('n', 'ff', ':Ack ', n)
 map('n', 'fr', ':NvimTreeToggle<CR>', sn)
 
 map('n', 'feh', '"*p', sn)
-map('n', 'fej', vim.diagnostic.open_float, sn)
+map('n', 'fej', vim.lsp.buf.document_symbol, sn)
 map('n', 'fek', vim.lsp.buf.format, sn)
-map('n', 'fel', vim.lsp.buf.document_symbol, sn)
 
 map('n', 'fg', vim.lsp.buf.code_action, sn)
 map('n', 'fh', vim.lsp.buf.hover, sn)
 map('n', 'fj', vim.lsp.buf.definition, sn)
 map('n', 'fk', vim.lsp.buf.references, sn)
 map('n', 'fl', vim.lsp.buf.rename, sn)
+
+map('n', 'gh', vim.diagnostic.open_float, sn)
 map('n', 'gj', vim.diagnostic.goto_prev, sn)
 map('n', 'gk', vim.diagnostic.goto_next, sn)
 
