@@ -1,3 +1,5 @@
+window: {opacity: .95}
+
 font:
   normal: {family: JetBrains Mono}
   bold: {family: JetBrains Mono}

@@ -12,7 +12,6 @@ smart_gaps on
 hide_edge_borders smart_no_gaps
 
 font pango:JetBrains Mono 18
-client.focused #ffffff #285577 #ffffff #2e9ef4 #ffffff
 
 exec dunst &
 exec bash -c '~/de/client/eyes_break.sh &'
@@ -25,7 +24,7 @@ bindsym --to-code {
 
     Mod1+c splith
     Mod1+v splitv
-# (x only) bindsym alt+b exec dmenu
+    Mod1+g exec ~/.local/bin/tofi-run
 
     Mod1+n fullscreen toggle
 # replace with foot
